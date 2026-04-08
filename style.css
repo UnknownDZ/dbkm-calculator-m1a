@@ -1,0 +1,731 @@
+/* ========================================
+   حاسبة المعدل - التصميم المتجاوب للهواتف
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #1e3a8a;
+    --primary-dark: #0f2b6d;
+    --primary-light: #3b82f6;
+    --accent: #ef4444;
+    --accent-dark: #dc2626;
+    --success: #10b981;
+    --success-dark: #059669;
+    --danger: #ef4444;
+    --gray: #64748b;
+    --gray-light: #e2e8f0;
+    --white: #ffffff;
+    --dark: #0f172a;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --transition: all 0.3s ease;
+}
+
+.dark-mode {
+    --primary: #60a5fa;
+    --primary-dark: #3b82f6;
+    --primary-light: #93c5fd;
+    --white: #1e293b;
+    --dark: #f8fafc;
+    --gray: #94a3b8;
+    --gray-light: #334155;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--gray-light);
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 30px;
+}
+
+/* خلفية الصورة - ستضع صورتك هنا */
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('images/college-bg.jpg'); /* ⚠️ ضع صورتك هنا */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+.bg-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode .bg-overlay::after {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   الأزرار العلوية
+   ======================================== */
+.top-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    color: var(--primary);
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.icon-btn:hover {
+    transform: scale(1.05);
+    background: var(--primary);
+    color: white;
+}
+
+.lang-btn {
+    width: auto;
+    padding: 0 16px;
+    border-radius: 44px;
+    gap: 8px;
+}
+
+/* ========================================
+   الرأس
+   ======================================== */
+.logo-container {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: var(--shadow-lg);
+}
+
+.logo i {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 8px;
+}
+
+.university-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-light);
+}
+
+.faculty {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+/* بطاقة الترحيب */
+.welcome-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.welcome-card p {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.welcome-card .highlight {
+    color: var(--primary);
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+/* رأس صفحة الحاسبة */
+.page-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+}
+
+.semester-stats {
+    display: flex;
+    justify-content: space-around;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    box-shadow: var(--shadow);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ========================================
+   أزرار السداسيات (الصفحة الرئيسية)
+   ======================================== */
+.semester-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.semester-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.semester-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-content h2 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.card-info {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+.arrow {
+    color: var(--gray);
+    font-size: 1.2rem;
+}
+
+/* ========================================
+   بطاقات المواد
+   ======================================== */
+.subjects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.subject-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-right: 4px solid var(--primary);
+}
+
+.subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.subject-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.subject-coefficient {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.subject-type {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* مدخلات الدرجات */
+.grades-input {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.grade-input-group {
+    flex: 1;
+    min-width: 120px;
+}
+
+.grade-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 6px;
+}
+
+.grade-controls {
+    display: flex;
+    align-items: center;
+    background: var(--gray-light);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.grade-btn {
+    width: 40px;
+    height: 48px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.grade-btn:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.grade-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.grade-input {
+    flex: 1;
+    height: 48px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Cairo', sans-serif;
+    color: var(--dark);
+}
+
+.grade-input:focus {
+    outline: none;
+}
+
+.subject-average {
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px dashed var(--gray-light);
+}
+
+.average-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.average-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.average-value.success {
+    color: var(--success);
+}
+
+.average-value.danger {
+    color: var(--danger);
+}
+
+/* ========================================
+   أزرار التحكم
+   ======================================== */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.btn-secondary:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* ========================================
+   بطاقة النتيجة
+   ======================================== */
+.result-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 24px;
+}
+
+.result-card h3 {
+    color: var(--primary);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+}
+
+.final-grade {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 16px 0;
+}
+
+.result-card.success .final-grade {
+    color: var(--success);
+}
+
+.result-card.danger .final-grade {
+    color: var(--danger);
+}
+
+.result-message {
+    padding: 10px 20px;
+    border-radius: 40px;
+    display: inline-block;
+    margin: 12px 0;
+    font-weight: 600;
+}
+
+.result-card.success .result-message {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.result-card.danger .result-message {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.result-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-light);
+}
+
+.detail {
+    text-align: center;
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.detail-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ========================================
+   قسم التواصل
+   ======================================== */
+.contact-section {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-section h3 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.contact-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 3px;
+}
+
+.contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--gray-light);
+    border-radius: 40px;
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+}
+
+.contact-btn.facebook:hover {
+    background: #1877f2;
+    color: white;
+}
+
+.contact-btn.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%);
+    color: white;
+}
+
+.contact-btn.email:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* ========================================
+   تذييل الصفحة
+   ======================================== */
+footer {
+    text-align: center;
+    padding: 16px;
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+/* ========================================
+   تنبيه (Toast)
+   ======================================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--dark);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast i {
+    color: var(--accent);
+}
+
+/* ========================================
+   التجاوب مع الهواتف الصغيرة
+   ======================================== */
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .logo i {
+        font-size: 2rem;
+    }
+    
+    .subject-name {
+        font-size: 1rem;
+    }
+    
+    .grades-input {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .grade-input-group {
+        min-width: 100%;
+    }
+    
+    .final-grade {
+        font-size: 2.8rem;
+    }
+    
+    .contact-links {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .contact-btn {
+        justify-content: center;
+    }
+}
+
+/* ========================================
+   تحسينات للشاشات المتوسطة
+   ======================================== */
+@media (min-width: 768px) {
+    .container {
+        max-width: 500px;
+    }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>حاسبة المعدل - القانون الإداري M1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- خلفية الصورة -->
+    <div class="bg-overlay"></div>
+    
+    <div class="container">
+        <!-- الأزرار العلوية -->
+        <div class="top-buttons">
+            <button class="icon-btn" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="icon-btn lang-btn" id="langToggle">
+                <i class="fas fa-globe"></i>
+                <span id="langText">EN</span>
+            </button>
+        </div>
+
+        <!-- الرأس -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h1 data-key="app_title">حاسبة المعدل</h1>
+                <p class="subtitle" data-key="app_subtitle">القانون الإداري - ماستر 1</p>
+                <div class="university-name">جامعة الجيلالي بونعامة - خميس مليانة</div>
+                <p class="faculty" data-key="faculty">كلية الحقوق والعلوم السياسية</p>
+            </div>
+            
+            <div class="welcome-card">
+                <p data-key="welcome_text1">هذه الحاسبة مخصصة لتخصص سنة أولى ماستر القانون الإداري لكلا السداسيين</p>
+                <p data-key="welcome_text2">تقوم هذه الحاسبة بدقة تامة مع مراعاة جميع القوانين الحسابية</p>
+                <p class="highlight" data-key="choose_semester">اختر السداسي الذي تريد حساب معدله:</p>
+            </div>
+        </header>
+
+        <!-- أزرار السداسيات -->
+        <div class="semester-buttons">
+            <a href="s1.html" class="semester-card">
+                <div class="card-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="card-content">
+                    <h2 data-key="semester1">السداسي الأول</h2>
+                    <p class="card-info">15 معامل - 8 مواد</p>
+                </div>
+                <i class="fas fa-chevron-left arrow"></i>
+            </a>
+            
+            <a href="s2.html" class="semester-card">
+                <div class="card-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="card-content">
+                    <h2 data-key="semester2">السداسي الثاني</h2>
+                    <p class="card-info">15 معامل - 8 مواد</p>
+                </div>
+                <i class="fas fa-chevron-left arrow"></i>
+            </a>
+        </div>
+
+        <!-- قسم التواصل -->
+        <div class="contact-section">
+            <h3 data-key="contact_us">تواصل معنا</h3>
+            <div class="contact-links">
+                <a href="https://www.facebook.com/20031219k" target="_blank" class="contact-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    <span data-key="facebook">فيسبوك</span>
+                </a>
+                <a href="https://www.instagram.com/amraoui_sidahmed/" target="_blank" class="contact-btn instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span data-key="instagram">إنستغرام</span>
+                </a>
+                <a href="mailto:s-amraoui@univ-dbkm.dz" class="contact-btn email">
+                    <i class="fas fa-envelope"></i>
+                    <span data-key="email">البريد الجامعي</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- حقوق النشر -->
+        <footer>
+            <p>© 2026 <span data-key="copyright">حاسبة المعدل الجامعي - الجيلالي بونعامة</span></p>
+            <p data-key="developer">تم التطوير من طرف الطالب "عمراوي سيدأحمد"</p>
+        </footer>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

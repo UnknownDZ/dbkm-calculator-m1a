@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>حاسبة المعدل - السداسي الأول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" rel="preload">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-overlay"></div>
+    
+    <div class="container">
+        <!-- الأزرار العلوية -->
+        <div class="top-buttons">
+            <a href="index.html" class="icon-btn back-btn">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <button class="icon-btn" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="icon-btn lang-btn" id="langToggle">
+                <i class="fas fa-globe"></i>
+                <span id="langText">EN</span>
+            </button>
+        </div>
+
+        <!-- الرأس -->
+        <header class="page-header">
+            <h1 data-key="semester1">السداسي الأول</h1>
+            <div class="semester-stats">
+                <div class="stat">
+                    <span class="stat-label" data-key="total_coefficient">مجموع المعاملات</span>
+                    <span class="stat-value">15</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label" data-key="subjects_count">عدد المواد</span>
+                    <span class="stat-value">8</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label" data-key="pass_mark">معدل النجاح</span>
+                    <span class="stat-value">10/20</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- حاوية المواد -->
+        <div class="subjects-container" id="subjectsContainer"></div>
+
+        <!-- أزرار التحكم -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="calculateBtn">
+                <i class="fas fa-calculator"></i>
+                <span data-key="calculate">حساب المعدل</span>
+            </button>
+            <button class="btn btn-secondary" id="resetBtn">
+                <i class="fas fa-undo-alt"></i>
+                <span data-key="reset">إعادة تعيين</span>
+            </button>
+        </div>
+
+        <!-- بطاقة النتيجة -->
+        <div class="result-card" id="resultCard" style="display: none;">
+            <h3 data-key="final_result">النتيجة النهائية</h3>
+            <div class="final-grade" id="finalGrade">0.00</div>
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-details">
+                <div class="detail">
+                    <span class="detail-label" data-key="total_points">مجموع النقاط</span>
+                    <span class="detail-value" id="totalPoints">0</span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label" data-key="total_coeff">مجموع المعاملات</span>
+                    <span class="detail-value" id="totalCoeff">15</span>
+                </div>
+                <div class="detail">
+                    <span class="detail-label" data-key="status">الحالة</span>
+                    <span class="detail-value" id="status">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- تنبيه -->
+        <div class="toast" id="toast">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // بيانات السداسي الأول
+        const SEMESTER_DATA = {
+            id: 1,
+            subjects: [
+                { id: 1, name: "الإدارة المركزية", name_en: "Central Administration", name_fr: "Administration Centrale", coefficient: 3, hasTwoGrades: true, grade1: 0, grade2: 0, type: "td-cour" },
+                { id: 2, name: "قضاء الإلغاء", name_en: "Cancellation Judiciary", name_fr: "Justice d'Annulation", coefficient: 3, hasTwoGrades: true, grade1: 0, grade2: 0, type: "td-cour" },
+                { id: 3, name: "المؤسسة والمرفق العام", name_en: "Institution and Public Facility", name_fr: "Institution et Service Public", coefficient: 3, hasTwoGrades: true, grade1: 0, grade2: 0, type: "td-cour" },
+                { id: 4, name: "منهجية البحث العلمي", name_en: "Scientific Research Methodology", name_fr: "Méthodologie de Recherche", coefficient: 2, hasTwoGrades: true, grade1: 0, grade2: 0, type: "td-cour" },
+                { id: 5, name: "التحرير الإداري", name_en: "Administrative Writing", name_fr: "Rédaction Administrative", coefficient: 1, hasTwoGrades: false, grade1: 0, grade2: 0, type: "td" },
+                { id: 6, name: "القضاء الإداري", name_en: "Administrative Judiciary", name_fr: "Justice Administrative", coefficient: 1, hasTwoGrades: false, grade1: 0, grade2: 0, type: "cour" },
+                { id: 7, name: "الدولة القانونية", name_en: "Legal State", name_fr: "État de Droit", coefficient: 1, hasTwoGrades: false, grade1: 0, grade2: 0, type: "cour" },
+                { id: 8, name: "اللغة الإنجليزية", name_en: "English Language", name_fr: "Langue Anglaise", coefficient: 1, hasTwoGrades: true, grade1: 0, grade2: 0, type: "td-cour" }
+            ]
+        };
+    </script>
+    <script>
+        initSemesterPage(SEMESTER_DATA);
+    </script>
+</body>
+</html>
