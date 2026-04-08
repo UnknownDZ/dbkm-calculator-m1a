@@ -503,6 +503,18 @@ function initHomePage() {
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
     if (langToggle) langToggle.addEventListener('click', toggleLanguage);
 }
+// تسجيل Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('Service Worker registered successfully:', registration);
+      })
+      .catch(error => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
 
 // تشغيل التهيئة حسب الصفحة
 document.addEventListener('DOMContentLoaded', () => {
